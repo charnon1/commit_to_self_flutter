@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
 import './taskduedate.dart';
+import './task.dart';
 
 class TaskDescription extends StatelessWidget {
+
+  Task newTask;
+
+  TaskDescription(Task newTask){
+    this.newTask = newTask;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,6 @@ class TaskDescription extends StatelessWidget {
                 labelText: "Description:",
               ),
             ),
-            
           ],
         ),
       ),
@@ -37,7 +43,7 @@ class TaskDescription extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDueDate()),
+            MaterialPageRoute(builder: (context) => TaskDueDate(newTask)),
           );
         },
         tooltip: 'Add task',

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import './main.dart';
+import './task.dart';
+
 
 class TaskAmount extends StatelessWidget {
+
+
+  Task newTask;
+
+  TaskAmount(Task newTask){
+    this.newTask = newTask;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +50,7 @@ class TaskAmount extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyApp()),
+            MaterialPageRoute(builder: (context) => MyHomePage(newTask)),
           );
         },
         tooltip: 'Add task',

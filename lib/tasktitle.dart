@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import './taskdescription.dart';
+import './task.dart';
 
 class TaskTitle extends StatelessWidget {
+
+  Task newTask;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class TaskTitle extends StatelessWidget {
           Center(child: Container(child: 
            
             TextField(
+              onChanged: (text) => newTask.title = text,
               decoration: InputDecoration(
                 labelText: "Title:",
 
@@ -34,16 +38,13 @@ class TaskTitle extends StatelessWidget {
             width: MediaQuery.of(context).size.width/2,
           ),),
           
-         
-          
-          
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDescription()),
+            MaterialPageRoute(builder: (context) => TaskDescription(newTask)),
           );
         },
         tooltip: 'Add task',

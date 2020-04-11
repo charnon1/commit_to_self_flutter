@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
 import './tasktitle.dart';
+import './task.dart';
 
 void main() {
   runApp(MyApp());
 }
 
+List<Task> listOfTask;
+Task newTask;
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+  MyApp({Task newTask = null}){
+    newTask = newTask;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,30 +23,38 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Commit To Self'),
+      home: MyHomePage(newTask),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  // MyHomePage({Key key, this.title}) : super(key: key);
+  Task newTask;
 
-  final String title;
+  MyHomePage(this.newTask);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(newTask);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  _MyHomePageState(Task newTask){
+    setState((){
+      listOfTask: listOfTask.add(newTask);
+    }); 
+  }
+
   @override
   Widget build(BuildContext context) {
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Commit to self"),
       ),
-      body: Center(child: Text("You do not have any task yet.")),
+      body: listOfTask != null && listOfTask.length > 0 ? Text("You have some tasks") : Text("You do not have any task yet"),
+      // Center(child: Text("You do not have any task yet.")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
