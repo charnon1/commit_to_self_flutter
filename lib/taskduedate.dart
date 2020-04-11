@@ -10,20 +10,31 @@ class TaskDueDate extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add a due date"),
-      ),
-      body: Row(
-        children: <Widget>[
-          Text("add your due date here"),
-          RaisedButton(
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TaskAmount()),
-              );
-            },
-            child: Text("Confirm due date"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.navigate_next),
+            onPressed: () => print("Going next"),
           ),
         ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TaskAmount()),
+          );
+        },
+        tooltip: 'Add task',
+        child: Icon(Icons.add),
       ),
     );
   }

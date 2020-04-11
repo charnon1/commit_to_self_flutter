@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Text("Hello"),
+      body: Center(child: Text("You do not have any task yet.")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

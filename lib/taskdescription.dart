@@ -10,21 +10,40 @@ class TaskDescription extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add a description"),
-      ),
-      body: Row(
-        children: <Widget>[
-          Text("add your description here"),
-          RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TaskDueDate()),
-              );
-            },
-            child: Text("Confirm task description"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.navigate_next),
+            onPressed: () => print("Going next"),
           ),
         ],
       ),
+      body:  Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              decoration: InputDecoration(
+                labelText: "Description:",
+              ),
+            ),
+            
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TaskDueDate()),
+          );
+        },
+        tooltip: 'Add task',
+        child: Icon(Icons.add),
+      ),
+      
     );
   }
 }
