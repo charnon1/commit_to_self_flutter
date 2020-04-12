@@ -6,6 +6,7 @@ import './task.dart';
 class TaskDescription extends StatelessWidget {
 
   Task newTask;
+  var controller = TextEditingController();
 
   TaskDescription(Task newTask){
     this.newTask = newTask;
@@ -30,8 +31,7 @@ class TaskDescription extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextField(
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
+              controller: controller,
               decoration: InputDecoration(
                 labelText: "Description:",
               ),
@@ -41,9 +41,10 @@ class TaskDescription extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          this.newTask.description = controller.text;
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDueDate(newTask)),
+            MaterialPageRoute(builder: (context) => TaskDueDate(this.newTask)),
           );
         },
         tooltip: 'Add task',

@@ -38,7 +38,7 @@ class TaskDueDate extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskAmount(newTask)),
+            MaterialPageRoute(builder: (context) => TaskAmount(this.newTask)),
           );
         },
         tooltip: 'Add task',

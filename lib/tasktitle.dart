@@ -5,7 +5,8 @@ import './task.dart';
 
 class TaskTitle extends StatelessWidget {
 
-  Task newTask;
+  Task newTask = Task("","","",0);
+  var controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +27,10 @@ class TaskTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Center(child: Container(child: 
-           
             TextField(
-              onChanged: (text) => newTask.title = text,
+              controller: controller,
               decoration: InputDecoration(
                 labelText: "Title:",
-
               ),
             ),
             
@@ -42,9 +41,10 @@ class TaskTitle extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          this.newTask.title = controller.text;
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDescription(newTask)),
+            MaterialPageRoute(builder: (context) => TaskDescription(this.newTask)),
           );
         },
         tooltip: 'Add task',

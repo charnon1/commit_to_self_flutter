@@ -7,8 +7,8 @@ import './task.dart';
 
 class TaskAmount extends StatelessWidget {
 
-
   Task newTask;
+  var controller = TextEditingController();
 
   TaskAmount(Task newTask){
     this.newTask = newTask;
@@ -33,6 +33,7 @@ class TaskAmount extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormField(
+                controller: controller,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                     WhitelistingTextInputFormatter.digitsOnly
@@ -40,7 +41,8 @@ class TaskAmount extends StatelessWidget {
                 decoration: InputDecoration(
                     prefix: Text("\$"),
                     labelText:"Pledge an amount", 
-                )
+                ),
+             
             ),
             
           ],
@@ -48,6 +50,8 @@ class TaskAmount extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          this.newTask.amount = int.parse(controller.text);
+          print("Full newTask information: title: " + this.newTask.title + ", description: " + this.newTask.description + ", amount: " + this.newTask.amount.toString());
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => MyHomePage(newTask)),

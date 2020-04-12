@@ -4,14 +4,14 @@ import './tasktitle.dart';
 import './task.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(null));
 }
 
 List<Task> listOfTask;
 Task newTask;
 class MyApp extends StatelessWidget {
 
-  MyApp({Task newTask = null}){
+  MyApp(Task newTask){
     newTask = newTask;
   }
 
@@ -30,20 +30,26 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   // MyHomePage({Key key, this.title}) : super(key: key);
-  Task newTask;
 
-  MyHomePage(this.newTask);
+  MyHomePage(Task newTask){
+  }
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(newTask);
+  MyHomePageState createState() => MyHomePageState(newTask);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
 
-  _MyHomePageState(Task newTask){
-    setState((){
-      listOfTask: listOfTask.add(newTask);
-    }); 
+  MyHomePageState(Task newTask){
+    if(newTask != null){
+      listOfTask.add(newTask);
+      setState((){
+        listOfTask = listOfTask;
+      });
+      print("new length of listOfTask: " + listOfTask.length.toString());
+    }else{
+      print("newTask is null");
+    }
   }
 
   @override
