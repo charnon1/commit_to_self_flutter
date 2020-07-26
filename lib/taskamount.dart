@@ -1,66 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import './main.dart';
-import './task.dart';
-
+import "./task.dart";
 
 class TaskAmount extends StatelessWidget {
 
-  Task newTask;
-  var controller = TextEditingController();
+  String dueDate ="";
+  Task newTask = new Task("","","",3);
 
-  TaskAmount(Task newTask){
-    this.newTask = newTask;
+  TaskAmount(String date){
+    this.dueDate = date;
   }
 
   @override
   Widget build(BuildContext context) {
-  
+    //returns a scaffold
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add an amount "),
+        title: Text("Add an amount"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.navigate_next),
-            onPressed: () => print("Going next"),
+            onPressed: () => print("going next"),
           ),
         ],
       ),
-      body: Center( 
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
-                controller: controller,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly
-                ],
-                decoration: InputDecoration(
-                    prefix: Text("\$"),
-                    labelText:"Pledge an amount", 
-                ),
-             
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Amount:",
+              ),
             ),
-            
+            dueDate != "" ? Text("The dueDate is : " + dueDate) : Text("There is no due date"),
+
           ],
+
         ),
+
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          this.newTask.amount = int.parse(controller.text);
-          print("Full newTask information: title: " + this.newTask.title + ", description: " + this.newTask.description + ", amount: " + this.newTask.amount.toString());
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyHomePage(newTask)),
+            MaterialPageRoute(builder: (context) => MyApp(newTask)),
           );
         },
-        tooltip: 'Add task',
+        tooltip: 'Add Amount',
         child: Icon(Icons.add),
       ),
-      
     );
   }
+
 }

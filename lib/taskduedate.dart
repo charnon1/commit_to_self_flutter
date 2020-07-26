@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 
-import './taskamount.dart';
-import './task.dart';
-
+import "./taskAmount.dart";
 class TaskDueDate extends StatelessWidget {
 
+  String title= "";
 
-  Task newTask;
-
-  TaskDueDate(Task newTask){
-    this.newTask = newTask;
+  TaskDueDate(String title){
+    this.title = title;
   }
 
   @override
   Widget build(BuildContext context) {
-  
+    //returns a scaffold
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add a due date"),
+        title: Text("Add a description"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.navigate_next),
-            onPressed: () => print("Going next"),
+            onPressed: () => print("going next"),
           ),
         ],
       ),
@@ -30,7 +27,13 @@ class TaskDueDate extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Description:",
+              ),
+            ),
+          title != "" ? Text("The title is: " + title) : Text("There is no title")
+
           ],
         ),
       ),
@@ -38,12 +41,13 @@ class TaskDueDate extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskAmount(this.newTask)),
+            MaterialPageRoute(builder: (context) => TaskAmount("today")),
           );
         },
-        tooltip: 'Add task',
+        tooltip: 'Add Description',
         child: Icon(Icons.add),
       ),
     );
   }
+
 }

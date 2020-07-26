@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 
-import './tasktitle.dart';
+import "./taskTitle.dart";
 import './task.dart';
 
 void main() {
   runApp(MyApp(null));
 }
 
-List<Task> listOfTask;
-Task newTask;
+
 class MyApp extends StatelessWidget {
 
-  MyApp(Task newTask){
-    newTask = newTask;
+  String amount;
+  Task task;
+  MyApp(Task task){
+    // amount = amount;
+    task = task;
+    // if(amount != ""){
+    //   print("The value of amount is: " + amount);
+    // }
+    if(task != null){
+      print("task: " + task.amount.toString());
+    }
   }
 
   @override
@@ -23,33 +31,28 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(newTask),
+      home: MyHomePage(amount),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  // MyHomePage({Key key, this.title}) : super(key: key);
 
-  MyHomePage(Task newTask){
+  String amount;
+
+  MyHomePage(String amount){
+    amount = amount;
   }
 
   @override
-  MyHomePageState createState() => MyHomePageState(newTask);
+  MyHomePageState createState() => MyHomePageState(amount);
 }
 
 class MyHomePageState extends State<MyHomePage> {
 
-  MyHomePageState(Task newTask){
-    if(newTask != null){
-      listOfTask.add(newTask);
-      setState((){
-        listOfTask = listOfTask;
-      });
-      print("new length of listOfTask: " + listOfTask.length.toString());
-    }else{
-      print("newTask is null");
-    }
+  String amount;
+  MyHomePageState(String amount){
+    amount = amount;
   }
 
   @override
@@ -59,8 +62,7 @@ class MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Commit to self"),
       ),
-      body: listOfTask != null && listOfTask.length > 0 ? Text("You have some tasks") : Text("You do not have any task yet"),
-      // Center(child: Text("You do not have any task yet.")),
+      body: Text("You do not have any task yet"),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
