@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import "./task.dart";
 
 import "./taskAmount.dart";
 class TaskDueDate extends StatelessWidget {
 
-  String title= "";
+  Task newTask = new Task("","","",0);
 
-  TaskDueDate(String title){
-    this.title = title;
+  TaskDueDate(Task newTask){
+    if(newTask != null){
+      print("newTask is not null. assigning...");
+      print("newTask title: " + newTask.title);
+      this.newTask = newTask;
+
+    }else{
+      print("newTask is null in dueDate page");
+    }
   }
 
   @override
@@ -31,9 +39,11 @@ class TaskDueDate extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: "Description:",
               ),
+              onChanged: (description){
+                this.newTask.description = description;
+              },
             ),
-          title != "" ? Text("The title is: " + title) : Text("There is no title")
-
+          // title != "" ? Text("The title is: " + title) : Text("There is no title")
           ],
         ),
       ),
@@ -41,7 +51,7 @@ class TaskDueDate extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskAmount("today")),
+            MaterialPageRoute(builder: (context) => TaskAmount(newTask)),
           );
         },
         tooltip: 'Add Description',

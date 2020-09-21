@@ -7,19 +7,22 @@ void main() {
   runApp(MyApp(null));
 }
 
-
 class MyApp extends StatelessWidget {
 
-  String amount;
+  List<Task> tasks = [];
   Task task;
+
   MyApp(Task task){
-    // amount = amount;
-    task = task;
-    // if(amount != ""){
-    //   print("The value of amount is: " + amount);
-    // }
+    print("MyApp...");
     if(task != null){
-      print("task: " + task.amount.toString());
+      this.task = task;
+      this.tasks.add(this.task);
+      print("new task assigned");
+      print("title: " + this.task.title);
+      print("description: " + this.task.description);
+      print("length of tasks: " + this.tasks.length.toString());
+    }else{
+      print("new task is null in home page");
     }
   }
 
@@ -31,38 +34,50 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(amount),
+      home: MyHomePage(this.tasks),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
 
-  String amount;
+  List<Task> tasks = [];
 
-  MyHomePage(String amount){
-    amount = amount;
+  MyHomePage(List<Task> tasks){
+    this.tasks = tasks;
   }
 
   @override
-  MyHomePageState createState() => MyHomePageState(amount);
+  MyHomePageState createState() => MyHomePageState(this.tasks);
 }
 
 class MyHomePageState extends State<MyHomePage> {
 
-  String amount;
-  MyHomePageState(String amount){
-    amount = amount;
+  List<Task> tasks = [];
+  MyHomePageState(List<Task> tasks){
+    this.tasks = tasks;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (this.tasks != null){
+      print("length of tasks: " + tasks.length.toString());
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Commit to self"),
       ),
-      body: Text("You do not have any task yet"),
+      body: Text(((){
+        if(this.tasks != null){
+          if(this.tasks.length > 0){
+            return "you have a task!";
+          }
+        }
+        return "click the button to add a task";
+      })()),
+      //  Text("You do not have any task yet"),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

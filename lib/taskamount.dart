@@ -5,11 +5,15 @@ import "./task.dart";
 
 class TaskAmount extends StatelessWidget {
 
-  String dueDate ="";
-  Task newTask = new Task("","","",3);
+  Task newTask = new Task("","","",0);
 
-  TaskAmount(String date){
-    this.dueDate = date;
+  TaskAmount(Task newTask){
+   if(newTask != null){
+      print("newTask is not null. assigning...");
+      this.newTask = newTask;
+    }else{
+      print("newTask is null in amount page");
+    }
   }
 
   @override
@@ -34,8 +38,9 @@ class TaskAmount extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: "Amount:",
               ),
+              
             ),
-            dueDate != "" ? Text("The dueDate is : " + dueDate) : Text("There is no due date"),
+            // dueDate != "" ? Text("The dueDate is : " + dueDate) : Text("There is no due date"),
 
           ],
 

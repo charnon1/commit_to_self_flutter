@@ -26,6 +26,15 @@ class Task{
     _amount = amount;
   }
 
+    String get title {
+    return _title;
+  }
+
+  String get description {
+    return _description;
+  }
+
+
   
   
 }

@@ -5,7 +5,7 @@ import "./task.dart";
 
 class TaskTitle extends StatelessWidget {
 
-  Task newTask;
+  Task newTask = new Task("","","",0);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,7 @@ class TaskTitle extends StatelessWidget {
               ),
               onChanged: (text){
                 this.newTask.title = text;
+                print("title set in title page");
               },
             ),
             
@@ -41,7 +42,7 @@ class TaskTitle extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDueDate("grind")),
+            MaterialPageRoute(builder: (context) => TaskDueDate(newTask)),
           );
         },
         tooltip: 'Add Title',
