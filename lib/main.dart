@@ -68,14 +68,22 @@ class MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Commit to self"),
       ),
-      body: Text(((){
-        if(this.tasks != null){
-          if(this.tasks.length > 0){
-            return "you have a task!";
-          }
-        }
-        return "click the button to add a task";
-      })()),
+      body: Container(
+        padding: EdgeInsets.fromLTRB(10,10,10,0),
+        height: 150,
+        width: double.maxFinite,
+        child: Card(
+          elevation: 5,
+        ),
+      ),
+      // body: new ListView.builder(
+      //   itemCount: this.tasks.length,
+      //   itemBuilder: (BuildContext ctxt, int index){
+      //     return new Card(
+      //       child: Text("hello"),
+      //     );
+      //   },
+      // ), 
       //  Text("You do not have any task yet"),
 
       floatingActionButton: FloatingActionButton(
