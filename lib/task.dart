@@ -34,6 +34,11 @@ class Task{
     return _description;
   }
 
+  
+  String get asString{
+    return _title + "," + _description + "," + _dueDate + "," + _amount.toString();
+  }
+
 
   
   

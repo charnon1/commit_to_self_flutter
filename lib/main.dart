@@ -1,61 +1,85 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+
 
 import "./taskTitle.dart";
 import './task.dart';
+import 'dart:async';
+
+
+import 'package:path_provider/path_provider.dart';
+
 
 void main() {
-  runApp(MyApp(null));
+  runApp( MaterialApp(
+      title: 'Reading and Writing Files',
+      home: MyHomePage(CounterStorage(), null),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class CounterStorage {
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
 
-  List<Task> tasks = [];
-  Task task;
+    return directory.path;
+  }
 
-  MyApp(Task task){
-    print("MyApp...");
-    if(task != null){
-      this.task = task;
-      this.tasks.add(this.task);
-      print("new task assigned");
-      print("title: " + this.task.title);
-      print("description: " + this.task.description);
-      print("length of tasks: " + this.tasks.length.toString());
-    }else{
-      print("new task is null in home page");
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/counter.txt');
+  }
+
+  Future<int> readCounter() async {
+    try {
+      final file = await _localFile;
+
+      // Read the file
+      String contents = await file.readAsString();
+
+      return int.parse(contents);
+    } catch (e) {
+      // If encountering an error, return 0
+      return 0;
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Commit To Self',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(this.tasks),
-    );
+  Future<File> writeTask(String task) async {
+    final file = await _localFile;
+    print("file directory in writeTask: " + file.toString());
+
+    // Write the file
+    return file.writeAsString('$task');
   }
 }
 
 class MyHomePage extends StatefulWidget {
 
-  List<Task> tasks = [];
+  CounterStorage storage;
 
-  MyHomePage(List<Task> tasks){
-    this.tasks = tasks;
+
+  MyHomePage(CounterStorage storage, Task newTask){
+    this.storage = storage;
+    if(newTask != null){
+      print("asString: " + newTask.asString);
+      print("newTask title: " + newTask.title);
+      print("newTask description: " + newTask.description);
+      // write new task to file here
+    }
+    
   }
 
   @override
-  MyHomePageState createState() => MyHomePageState(this.tasks);
+  MyHomePageState createState() => MyHomePageState(this.storage);
 }
 
 class MyHomePageState extends State<MyHomePage> {
 
   List<Task> tasks = [];
-  MyHomePageState(List<Task> tasks){
-    this.tasks = tasks;
+  CounterStorage storage;
+
+  MyHomePageState(CounterStorage storage){
+    this.storage = storage;
   }
 
   @override
@@ -90,7 +114,7 @@ class MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskTitle()),
+            MaterialPageRoute(builder: (context) => TaskTitle(storage)),
           );
         },
         tooltip: 'Add task',

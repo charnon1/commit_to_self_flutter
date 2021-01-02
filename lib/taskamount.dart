@@ -6,10 +6,11 @@ import "./task.dart";
 class TaskAmount extends StatelessWidget {
 
   Task newTask = new Task("","","",0);
+  CounterStorage storage;
 
-  TaskAmount(Task newTask){
+  TaskAmount(CounterStorage storage, Task newTask){
    if(newTask != null){
-      print("newTask is not null. assigning...");
+      this.storage = storage;
       this.newTask = newTask;
     }else{
       print("newTask is null in amount page");
@@ -51,7 +52,7 @@ class TaskAmount extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyApp(newTask)),
+            MaterialPageRoute(builder: (context) => MyHomePage(this.storage, newTask)),
           );
         },
         tooltip: 'Add Amount',
