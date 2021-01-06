@@ -7,10 +7,8 @@ import "./main.dart";
 class TaskDueDate extends StatelessWidget {
 
   Task newTask = new Task("","","",0);
-  CounterStorage storage;
 
-  TaskDueDate(CounterStorage storage, Task newTask){
-    this.storage = storage;
+  TaskDueDate(Task newTask){
     this.newTask = newTask;
   }
 
@@ -38,7 +36,6 @@ class TaskDueDate extends StatelessWidget {
               ),
               onChanged: (description){
                 this.newTask.description = description;
-                print("description set in the task due date page");
               },
             ),
           // title != "" ? Text("The title is: " + title) : Text("There is no title")
@@ -49,7 +46,7 @@ class TaskDueDate extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskAmount(this.storage, newTask)),
+            MaterialPageRoute(builder: (context) => TaskAmount(newTask)),
           );
         },
         tooltip: 'Add Description',

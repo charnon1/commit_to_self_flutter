@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
 import "./taskDueDate.dart";
-import "./main.dart";
 import "./task.dart";
 
 class TaskTitle extends StatelessWidget {
 
   Task newTask = new Task("","","",0);
-  CounterStorage storage;
 
-  TaskTitle(CounterStorage storage){
-    this.storage = storage;
-  }
+  TaskTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +33,6 @@ class TaskTitle extends StatelessWidget {
               ),
               onChanged: (text){
                 this.newTask.title = text;
-                print("title set in title page");
               },
             ),
             
@@ -48,7 +43,7 @@ class TaskTitle extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDueDate(this.storage, this.newTask)),
+            MaterialPageRoute(builder: (context) => TaskDueDate(this.newTask)),
           );
         },
         tooltip: 'Add Title',
