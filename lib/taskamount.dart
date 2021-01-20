@@ -1,3 +1,4 @@
+import 'package:commit_to_self/taskduedate.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
@@ -33,7 +34,10 @@ class TaskAmount extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: "Amount:",
               ),
-              
+              keyboardType: TextInputType.number,
+              onChanged: (text){
+                this.newTask.amount = int.parse(text);
+              },
             ),
             // dueDate != "" ? Text("The dueDate is : " + dueDate) : Text("There is no due date"),
 
@@ -46,7 +50,7 @@ class TaskAmount extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyHomePage(newTask)),
+            MaterialPageRoute(builder: (context) => TaskDueDate(newTask)),
           );
         },
         tooltip: 'Add Amount',

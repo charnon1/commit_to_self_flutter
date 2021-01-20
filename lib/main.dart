@@ -29,13 +29,15 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
 
+  var _tasks;
+
   MyHomePageState(Task newTask){
     if(newTask != null){
       //write to file
       writeTask(newTask.asString);
     }
     //read task file 
-    readTasks();
+    _tasks = readTasks();
 
   }
 
@@ -47,37 +49,48 @@ class MyHomePageState extends State<MyHomePage> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
+    print("path to file: " + path );
     return File('$path/counter.txt');
   }
 
-  Future<String> readTasks() async {
+  Future<List<Task>> readTasks() async {
+    List<Task> tasks = [];
     try {
       final file = await _localFile;
 
       // Read the file
       String contents = await file.readAsString();
 
-      print("Current list of strings:");
-      print(contents);
-      processContents(contents);
+      // print("Current list of strings:");
+      // print(contents);
 
-      return contents;
+      // var split = contents.split(","); // []String
+      RegExp exp = new RegExp(r",\n");
+      
+      Iterable<Match> matches = exp.allMatches(contents);
+      matches.forEach((m)=>print(m.group(0)));
+
+      // print("below is the split contents\n");
+      // print(split);
+
+      // for (var i=0; i < split.length; i++) {
+      //   print("i: " + i.toString());
+      //   print(split[i]);
+      // }
+      return tasks;
     } catch (e) {
-      return "error in reading tasks";
+      return [];
     }
   }
 
   Future<File> writeTask(String task) async {
     final file = await _localFile;
     // print("file directory in writeTask: " + file.toString()); // /Users/charnonng/Library/Developer/CoreSimulator/Devices/1E3FF9AF-1D02-4024-87BA-8DF676272858/data/Containers/Data/Application/EF24108F-6D6F-4CF6-86EE-D2A7B52F0CB5/Documents/counter.txt
-
     // Write the file
     return file.writeAsString('$task\n', mode: FileMode.append);
   }
 
-  processContents(String contents){
-    // @todo: separate all the tasks into a list for rendering
-  }
+
 
   @override
   Widget build(BuildContext context) {

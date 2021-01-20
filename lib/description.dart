@@ -1,20 +1,21 @@
-import 'package:commit_to_self/description.dart';
 import 'package:flutter/material.dart';
 
+import "./taskamount.dart";
 import "./task.dart";
 
-class TaskTitle extends StatelessWidget {
+class TaskDescription extends StatelessWidget {
 
-  Task newTask = new Task("","","",0);
+Task newTask = new Task("","","",0);
 
-  TaskTitle();
-
+  TaskDescription(Task newTask){
+    this.newTask = newTask;
+  }
   @override
   Widget build(BuildContext context) {
     //returns a scaffold
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add a title"),
+        title: Text("Add a Description"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.navigate_next),
@@ -29,10 +30,10 @@ class TaskTitle extends StatelessWidget {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(
-                labelText: "Title:",
+                labelText: "Description:",
               ),
               onChanged: (text){
-                this.newTask.title = text;
+                this.newTask.description = text;
               },
             ),
             
@@ -43,7 +44,7 @@ class TaskTitle extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDescription(this.newTask)),
+            MaterialPageRoute(builder: (context) => TaskAmount(this.newTask)),
           );
         },
         tooltip: 'Add Title',
