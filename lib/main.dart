@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -61,15 +63,25 @@ class MyHomePageState extends State<MyHomePage> {
       // Read the file
       String contents = await file.readAsString();
 
+      List<String> lines = file.readAsLinesSync();
+      print("printing out lines \n:");
+      for( var i = 0 ; i < lines.length; i++ ) { 
+          print(lines[i]);
+          var split = lines[i].split(",");
+          var _title = split[0];
+          var _description = split[1];
+          var _dueDate = split[2];
+          var _amount = int.parse(split[3]);
+          Task newTask = new Task(_title, _description, _dueDate, _amount);
+          tasks.add(newTask);
+      } 
+      print("the length of tasks after adding: " + tasks.length.toString());
+
       // print("Current list of strings:");
       // print(contents);
 
       // var split = contents.split(","); // []String
-      RegExp exp = new RegExp(r",\n");
       
-      Iterable<Match> matches = exp.allMatches(contents);
-      matches.forEach((m)=>print(m.group(0)));
-
       // print("below is the split contents\n");
       // print(split);
 
